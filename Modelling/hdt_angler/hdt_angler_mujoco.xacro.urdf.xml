@@ -1,0 +1,70 @@
+<mujoco model="hdt_arm">
+    <compiler angle="radian" meshdir="meshes/" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE" file="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE.STL" />
+        <mesh name="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" file="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE.STL" />
+        <mesh name="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE" file="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE.STL" />
+        <mesh name="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE" file="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE.STL" />
+        <mesh name="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER" file="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER.STL" />
+        <mesh name="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" file="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE.STL" />
+    </asset>
+    <worldbody>
+        <geom type="mesh" mesh="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE" />
+        <body name="drive1_link" pos="0 0 0.08335" quat="0.707107 0 0 -0.707107">
+            <inertial pos="0 0 0" mass="1" diaginertia="0.005 0.005 0.005" />
+            <joint name="drive1_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.7" />
+            <geom type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+            <body name="drive2_link" pos="0.07155 0 0" quat="0.707107 0 -0.707107 0">
+                <inertial pos="0.17855 0 0" quat="0.5 0.5 0.5 0.5" mass="3" diaginertia="0.0787602 0.0787602 0.015" />
+                <joint name="drive2_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-1.5708 1.5708" damping="0.7" />
+                <geom quat="0 1 0 0" type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                <geom quat="0 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                <geom pos="0.17855 0 0" type="mesh" mesh="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE" />
+                <geom pos="0.17855 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE" />
+                <geom pos="0.3571 0 0" quat="0 0 1 0" type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                <geom pos="0.3571 0 0" quat="0 0 1 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                <body name="drive3_link" pos="0.3571 0 0.07155">
+                    <inertial pos="0 0 0" quat="0.5 0.5 0.5 -0.5" mass="1" diaginertia="0.005 0.005 0.005" />
+                    <joint name="drive3_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-4.49 1.35" damping="0.7" />
+                    <geom quat="0.5 0.5 0.5 -0.5" type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                    <geom quat="0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                    <body name="drive4_link" pos="0 0.142 0" quat="0.707107 -0.707107 0 0">
+                        <inertial pos="0 0 0.064775" mass="2" diaginertia="0.0183916 0.0183916 0.01" />
+                        <joint name="drive4_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.7" />
+                        <geom quat="0 1 0 0" type="mesh" mesh="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE" />
+                        <geom quat="0 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE" />
+                        <geom pos="0 0 0.12955" quat="-0.5 0.5 -0.5 -0.5" type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                        <geom pos="0 0 0.12955" quat="-0.5 0.5 -0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                        <body name="drive5_link" pos="0 -0.07155 0.12955" quat="-0.5 -0.5 0.5 -0.5">
+                            <inertial pos="0 0 0" mass="1" diaginertia="0.005 0.005 0.005" />
+                            <joint name="drive5_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.7" />
+                            <geom quat="0 -0.707107 0 0.707107" type="mesh" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                            <geom quat="0 -0.707107 0 0.707107" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" />
+                            <body name="drive6_link" pos="0.0885 0 0" quat="0.707107 0 0.707107 0">
+                                <inertial pos="0 0 0" mass="1" diaginertia="0.005 0.005 0.005" />
+                                <joint name="drive6_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.7" />
+                                <geom quat="0.5 0.5 0.5 -0.5" type="mesh" mesh="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER" />
+                                <geom quat="0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER" />
+                                <body name="pincer_link" pos="0.0135 0 0.0375" quat="0.5 -0.5 -0.5 -0.5">
+                                    <inertial pos="0.0607647 0.00559547 -3.99908e-06" quat="0.0177323 0.706938 -0.0180733 0.706822" mass="0.0659882" diaginertia="0.00012599 0.000120886 7.08563e-06" />
+                                    <joint name="pincer_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-0.2 0.9" damping="0.7" />
+                                    <geom quat="0 1 0 0" type="mesh" mesh="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" />
+                                    <geom quat="0 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" />
+                                </body>
+                                <body name="pincer_link2" pos="-0.0135 0 0.0375" quat="0.5 0.5 -0.5 0.5">
+                                    <inertial pos="0.0607647 0.00559547 -3.99908e-06" quat="0.0177323 0.706938 -0.0180733 0.706822" mass="0.0659882" diaginertia="0.00012599 0.000120886 7.08563e-06" />
+                                    <joint name="pincer_joint2" pos="0 0 0" axis="0 0 1" limited="true" range="-0.2 1" damping="0.7" />
+                                    <geom quat="0 1 0 0" type="mesh" mesh="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" />
+                                    <geom quat="0 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.784314 0.784314 0.784314 1" mesh="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" />
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>

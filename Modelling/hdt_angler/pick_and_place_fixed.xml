@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco>
+	<compiler angle="radian" coordinate="local" meshdir="./meshes" texturedir="./textures"></compiler>
+
+	<option timestep="2e-3"
+			iterations="10"
+			tolerance="1e-10"
+			impratio="10"
+			gravity="0 0 -9.81"
+			solver="Newton"
+			cone="elliptic" />
+	<size nuserdata="100" njmax="500" nconmax="1000" nstack="600000" nuser_body="9" nuser_jnt="1" nuser_site="1" nuser_tendon="1" nuser_actuator="12" nuser_sensor="1" />
+
+	<visual>
+		<map fogstart="3" fogend="5" force="0.1" znear="0.1"/>
+		<quality shadowsize="2048" offsamples="8"/>
+		<global offwidth="800" offheight="800"/>
+	</visual>    
+
+	<include file="shared.xml"></include>
+	
+	<worldbody>
+
+		<geom name="floor0" pos="0. 0. 0." size="3 3 .125" type="plane" condim="3" material="floorplane"></geom>
+		<body name="floor0" pos="0. 0. 0.0">
+			<site name="target0" pos="0 0 0.5" size="0.02 0.02 0.02" rgba="0 1 0 1" type="sphere"></site>
+			<!-- <geom size="0.02 0.02 0.02" type="sphere" rgba="1 0 0 1" /> -->
+		</body>
+
+        <camera name="track" mode="trackcom" pos="0 -3 0.3" xyaxes="1 0 0 0 0 1"/>
+
+		<include file="robot_fixed.xml"></include>
+		
+		<body pos="0.5 -0. 0.2" name="table0">
+			<geom size="0.25 0.3 0.1" type="box" mass="2000" material="table_mat"></geom>
+			<geom size="0.25 0.3 0.1" type="box" mass="2000" group="1" material="table_mat"></geom>
+		</body>
+		
+		<body name="object0" pos="0.5 -0. 0.5">
+			<joint name="object0:joint" type="free" damping="0.01"></joint>
+			<geom size="0.05 0.07" type="cylinder" contype='1' conaffinity='1' margin='0.001' solimp='0.99 0.99 0.01' solref='0.01 1' condim="4" name="object0_visual" material="block_mat" mass="2" group="1" friction="1 .001 .001" ></geom>
+			<geom size="0.05 0.07" type="cylinder" contype='1' conaffinity='1' margin='0.001' solimp='0.99 0.99 0.01' solref='0.01 1' condim="4" name="object0_collision" material="block_mat" mass="2" group="0" friction="1 .001 .001" ></geom>
+	
+			<site name="object0" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
+		</body>
+
+		<light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 0 4" dir="0 0 -1" name="light0"></light>
+
+	</worldbody>
+
+
+    <actuator>
+      <position ctrllimited="true" ctrlrange="-2.0000 2.0000" joint="hdt_drive1_joint" kp="10000"/>
+      <position ctrllimited="true" ctrlrange="-1.5708 1.5708" joint="hdt_drive2_joint" kp="20000"/>
+      <position ctrllimited="true" ctrlrange="-3.0708 1.2708" joint="hdt_drive3_joint" kp="20000"/>
+      <position ctrllimited="true" ctrlrange="-2.5708 2.5708" joint="hdt_drive4_joint" kp="5000"/>
+      <position ctrllimited="true" ctrlrange="-1.5708 1.5708" joint="hdt_drive5_joint" kp="5000"/>
+      <position ctrllimited="true" ctrlrange="-1.5708 2.5708" joint="hdt_drive6_joint" kp="5000"/> 
+      <!-- <motor ctrllimited="true" ctrlrange="-0.7854 1.5708" joint="thumb_prox" gear="150"/> -->
+      <!-- <motor ctrllimited="true" ctrlrange="-0.7854 1.5708" joint="index_prox" gear="150"/> -->
+      <!-- <motor ctrllimited="true" ctrlrange="-0.7854 1.5708" joint="ring_prox" gear="150"/>     -->
+
+        <!--Gripper-->
+        <!-- position control mode -->
+        <position name='finger_1' ctrllimited="true" kp="50" joint='hdt_pincer_joint1' ctrlrange='0 0.5'/>
+        <position name='finger_2' ctrllimited="true" kp="50" joint='hdt_pincer_joint2' ctrlrange='0 0.5'/>
+
+        <!-- <position name='finger_scissor' ctrllimited="true" kp="20" joint='gripperpalm_finger_1_joint' ctrlrange="-0.2967 0.2967"/> -->
+
+        <!-- force control mode -->
+        <!-- <motor name='finger_1_T' ctrllimited="true" joint='gripperfinger_1_joint_1' ctrlrange='-0.1 .8' gear="20"/> -->
+        <!-- <motor name='finger_2_T' ctrllimited="true" joint='gripperfinger_2_joint_1' ctrlrange='-0.1 .8' gear="20"/> -->
+        <!-- <motor name='middle_finger_T'  ctrllimited="true" joint='gripperfinger_middle_joint_1' ctrlrange='-0.1 .8' gear="20"/> -->
+        <!-- <motor name='finger_scissor_T' ctrllimited="true" joint='gripperpalm_finger_1_joint' ctrlrange="-0.8 0.8" gear="15"/> -->
+
+		<!-- <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="100.0" joint="wrist_x_slide_joint" />
+		<motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="100.0" joint="wrist_y_slide_joint" />
+		<motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="1000.0" joint="wrist_z_slide_joint" />
+		<motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="100.0" joint="wrist_z_hinge_joint" />
+		<motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="100.0" joint="wrist_y_hinge_joint" />
+		<motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="100.0" joint="wrist_x_hinge_joint" /> -->
+
+    </actuator> 
+
+</mujoco>
+

@@ -1,0 +1,73 @@
+<mujoco>
+    <asset>
+        <texture builtin="gradient" height="256" rgb1=".9 .9 1." rgb2=".2 .3 .4" type="skybox" width="256"/>
+        <texture builtin="checker" height="512" name="texplane" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" type="2d" width="512"/>
+        <material name="floorplane" reflectance="0.5" texrepeat="1 1" texture="texplane" texuniform="true"/>
+        
+        <!-- <texture builtin="gradient" height="100" rgb1="1 1 1" rgb2="0 0 0" type="skybox" width="100"/> -->
+        <texture builtin="flat" height="1278" mark="cross" markrgb="1 1 1" name="texgeom" random="0.01" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" type="cube" width="127"/>
+        <!-- <texture builtin="checker" height="100" name="texplane" rgb1="0 0 0" rgb2="0.8 0.8 0.8" type="2d" width="100"/> -->
+        <texture type="skybox" builtin="gradient" rgb1="0.44 0.85 0.56" rgb2="0.46 0.87 0.58" width="32" height="32"></texture>
+        <texture name="texture_block" file="block.png" gridsize="3 4" gridlayout=".U..LFRB.D.."></texture>
+
+        <material name="floor_mat" specular="0" shininess="0.5" reflectance="0" rgba="0.2 0.2 0.2 1"></material>
+        <material name="table_mat" specular="0" shininess="0.5" reflectance="0" rgba="0.93 0.93 0.93 1"></material>
+        <material name="block_mat" specular="0" shininess="0.5" reflectance="0" rgba="0.2 0.2 0.2 1"></material>
+        <material name="puck_mat" specular="0" shininess="0.5" reflectance="0" rgba="0.2 0.2 0.2 1"></material>
+        <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="60 60" texture="texplane"/>
+        <material name="geom" texture="texgeom" texuniform="true"/>
+        <material name="robot0:geomMat" shininess="0.03" specular="0.4"></material>
+
+        <mesh name="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE" file="H026994 - A35 M-2 PEDESTAL ASSY - SHAREABLE.STL" />
+        <mesh name="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE" file="H024840 - A35 M-2 DRIVE MODULE, SHAREABLE.STL" />
+        <mesh name="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE" file="H024847 - A35 M-2 PROXIMAL TUBE ASSY - SHAREABLE.STL" />
+        <mesh name="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE" file="H024848 - A35 M-2 DISTAL TUBE ASSY - SHAREABLE.STL" />
+        <mesh name="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER" file="H024842 - A35 M-2 PINCER ASSY - SHAREABLE, UNDERWATER.STL" />
+        <mesh name="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE" file="H022927 - A35 PINCER FINGER, LONG, OVERMOLD ASSY - SHAREABLE.STL" />
+
+    </asset>
+
+    <equality>
+    <!-- contrl the end-effector using mocap body, cartesion control -->
+    <!-- TODO: thumb_base need to change -->
+        <!-- <weld body1="robot0:mocap" body2="thumb_base" relpose="0.5 0.5 0.5 0 0 0 0" solimp="0.9 0.95 0.001" solref="0.02 1"></weld> -->
+    </equality>
+    
+    <contact>
+        <exclude body1="robot0:base_link" body2="drive1_link"></exclude>
+        <exclude body1="drive1_link" body2="drive2_link"></exclude>
+        <exclude body1="drive2_link" body2="drive3_link"></exclude>
+        <exclude body1="drive3_link" body2="drive4_link"></exclude>
+        <exclude body1="drive4_link" body2="drive5_link"></exclude>
+        <exclude body1="drive5_link" body2="ee_link"></exclude>
+        <exclude body1="ee_link" body2="pincer_link1"></exclude>
+        <exclude body1="ee_link" body2="pincer_link2"></exclude>
+        <exclude body1="pincer_link1" body2="pincer_link2"></exclude>
+    </contact>
+    
+    <default>
+
+        <geom contype='1' conaffinity='1' margin="0.001" solimp="0.99 0.99 0.01" solref="0.01 1" condim="4" rgba="0.8 0.6 0.4 1"/> 
+        <!-- <joint armature="1" damping="1" limited="true"/> -->
+        <joint armature="1" damping="1" />
+        <!-- <geom conaffinity="0" condim="3" density="5.0" friction="1 0.5 0.5" margin="0.01" rgba="0.8 0.6 0.4 1"/> -->
+
+        <default class="robot0:hdt_arm">
+            <geom margin="0.001" material="robot0:geomMat" rgba="1 1 1 1" solimp="0.99 0.99 0.01" solref="0.01 1" type="mesh" user="0"></geom>
+            <joint armature="1" damping="50" frictionloss="0" stiffness="0"></joint>
+            
+            <default class="robot0:hdt_gripper">
+                <geom condim="4" margin="0.001" type="box" user="0" rgba="0.356 0.361 0.376 1.0"></geom>
+                <joint armature="100" damping="1000" limited="true" solimplimit="0.99 0.999 0.01" solreflimit="0.01 1" type="slide"></joint>
+            </default>
+
+            <default class="robot0:grey">
+                <geom rgba="0.356 0.361 0.376 1.0"></geom>
+            </default>
+            <default class="robot0:blue">
+                <geom rgba="0.086 0.506 0.767 1.0"></geom>
+            </default>
+        </default>
+    </default>
+
+</mujoco>
